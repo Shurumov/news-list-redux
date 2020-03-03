@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import {Button, withModals, Modals} from 'components';
+
+import './app.scss'
+
+function App(props) {
+  const { showModal } = props;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-wrapper">
+      <Button
+        type="primary"
+        onClick={() => showModal(<div>1</div>)}
+      >
+        показать ещё
+      </Button>
+      <Modals/>
     </div>
   );
 }
 
-export default App;
+
+
+export default withModals(App);
