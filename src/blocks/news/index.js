@@ -28,8 +28,14 @@ class NewsList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log(prevProps);
-    console.log(this.props);
+    const {getData, selectedAuthorId} = this.props;
+
+    if(prevProps.selectedAuthorId !== selectedAuthorId){
+      const getFromUser = Boolean(selectedAuthorId)
+        ? `?userId=${selectedAuthorId}`
+        : '';
+      getData(`${API_METHODS.POSTS}${getFromUser}`)
+    }
   }
 
   addNews = () => {
