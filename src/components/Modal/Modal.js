@@ -1,11 +1,9 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {Modal as ModalAnt} from 'antd';
+import {Modal} from 'antd';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {showModal, hideModal} from 'store/actions/modal.action';
-import 'antd/es/modal/style/css';
-
 
 class Modals extends PureComponent {
   static propTypes = {
@@ -13,14 +11,15 @@ class Modals extends PureComponent {
   };
 
   render() {
-    const {modalState: {Node = <></>, isShow}} = this.props;
+    const { modalState: {Node = <></>, isShow}, hideModal} = this.props;
     return (
-      <ModalAnt
+      <Modal
         title="Basic Modal"
-        isOpen={isShow}
+        visible={isShow}
+        onCancel={hideModal}
       >
         {Node}
-      </ModalAnt>
+      </Modal>
     )
   }
 }

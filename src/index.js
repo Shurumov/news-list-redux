@@ -7,7 +7,8 @@ import {store} from 'store';
 import { init } from 'utils/api';
 import config from 'config';
 
-import './index.css'
+import 'styles/index.scss'
+import 'antd/dist/antd.css';
 const { API_DOMAIN } = config;
 
 let API_URL = `${API_DOMAIN}`;

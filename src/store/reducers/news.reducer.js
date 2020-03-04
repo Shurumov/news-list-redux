@@ -1,21 +1,22 @@
-import {TEST_ACTION, TEST_ACTION_2} from 'store/actions/test.action'
+import {NEWS_ACTION_TYPES} from 'store/actions/news.action'
 
 const initialState = {
-  testState: true,
+  newsList: [],
+  processing: true,
 };
 
 export default (state = initialState, action) => {
   const {type, payload} = action;
   switch (type) {
-    case TEST_ACTION:
+    case NEWS_ACTION_TYPES.NEWS_CHANGE_PROCESSING_STATE:
       return {
         ...state,
-        testState: payload,
+        processing: payload,
       };
-    case TEST_ACTION_2:
+    case NEWS_ACTION_TYPES.NEWS_SET_STATE:
       return {
         ...state,
-        testState: payload,
+        newsList: payload,
       };
     default:
       return state;

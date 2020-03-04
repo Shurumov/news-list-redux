@@ -1,25 +1,20 @@
 import React from 'react';
+import { Modals} from 'components';
+import { Header, NewsList } from 'blocks';
+import 'styles/app.scss'
 
-import {Button, withModals, Modals} from 'components';
-
-import './app.scss'
-
-function App(props) {
-  const { showModal } = props;
+function App() {
 
   return (
-    <div className="app-wrapper">
-      <Button
-        type="primary"
-        onClick={() => showModal(<div>1</div>)}
-      >
-        показать ещё
-      </Button>
-      <Modals/>
+    <div className="app_wrapper">
+      <div className="app">
+        <Header/>
+        <NewsList/>
+        <Modals/>
+      </div>
     </div>
   );
 }
 
 
-
-export default withModals(App);
+export default App;
