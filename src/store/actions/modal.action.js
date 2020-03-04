@@ -3,10 +3,10 @@ export const MODAL_ACTION_TYPES = {
   MODAL_HIDE_MODAL: 'MODAL_HIDE_MODAL',
 };
 
-export function showModal(modal) {
+export function showModal({title, description}) {
   return {
     type: MODAL_ACTION_TYPES.MODAL_SHOW_MODAL,
-    payload: {modal: modal, isShow: true},
+    payload: {title, description, isShow: true},
   };
 }
 

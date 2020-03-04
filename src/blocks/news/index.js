@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
-import {Modal, Button, Row, Col, Card} from 'antd';
+import { Button, Row, Col, Card} from 'antd';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -46,9 +46,25 @@ class NewsList extends Component {
         <Row gutter={gutter} content="top">
           {newsListForRender.map(item => (
             <Col sm={24} md={12} lg={8} xl={6} key={item.id}>
-              <Card title={item.title} style={{marginBottom: gutter}}>
+              <Card
+                title={item.title}
+                onClick={() => showModal({
+                  title: item.title,
+                  modal: (
+                    <article>
+                      {item.body}
+                    </article>
+                  )
+                })}
+                className="cursor-pointer"
+                style={{
+                  marginBottom: gutter,
+                  maxHeight: 150,
+                  overflow: "hidden",
+                }}
+              >
                 <article>
-                  {item.body}
+                  {`${item.body.slice(0, 70)}...`}
                 </article>
               </Card>
             </Col>
@@ -58,7 +74,6 @@ class NewsList extends Component {
         {newsCount < newsList.length && (
           <Button
             type="primary"
-            // onClick={() => showModal(<div>1</div>)}
             onClick={() => this.addNews()}
           >
             показать ещё

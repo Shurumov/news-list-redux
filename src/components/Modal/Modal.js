@@ -11,14 +11,14 @@ class Modals extends PureComponent {
   };
 
   render() {
-    const { modalState: {Node = <></>, isShow}, hideModal} = this.props;
+    const { modalState: {description, title, isShow}, hideModal} = this.props;
     return (
       <Modal
-        title="Basic Modal"
+        title={title}
         visible={isShow}
         onCancel={hideModal}
       >
-        {Node}
+        {description}
       </Modal>
     )
   }

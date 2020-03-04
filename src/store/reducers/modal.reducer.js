@@ -1,8 +1,8 @@
-import React from "react";
 import { MODAL_ACTION_TYPES } from 'store/actions/modal.action';
 
 const initialState = {
-  modal: <div/>,
+  description: '',
+  title: '',
   isShow: false,
 };
 

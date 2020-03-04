@@ -1,3 +1,4 @@
 export const API_METHODS = {
-  POSTS: '/posts'
+  POSTS: '/posts',
+  USERS: '/users'
 };
