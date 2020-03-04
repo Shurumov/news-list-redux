@@ -1,11 +1,17 @@
 export const AUTHOR_ACTION_TYPES = {
   AUTHOR_SET_AUTHORS: 'AUTHOR_SET_AUTHORS',
+  AUTHOR_SET_SELECTED: 'AUTHOR_SET_SELECTED',
   AUTHOR_CHANGE_PROCESSING_STATE: 'AUTHORS_CHANGE_PROCESSING_STATE',
 };
 
 export const setData = authors => ({
   type: AUTHOR_ACTION_TYPES.AUTHOR_SET_AUTHORS,
   payload: authors
+});
+
+export const setSelectedAuthor = id => ({
+  type: AUTHOR_ACTION_TYPES.AUTHOR_SET_SELECTED,
+  payload: id ? id: ''
 });
 
 export const changeAuthorProcessing = (state) => {

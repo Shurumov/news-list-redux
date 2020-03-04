@@ -2,6 +2,7 @@ import {AUTHOR_ACTION_TYPES} from 'store/actions/authors.actions'
 
 const initialState = {
   authors: [],
+  selectedAuthorId: '',
   processing: true,
 };
 
@@ -12,6 +13,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         processing: payload,
+      };
+    case AUTHOR_ACTION_TYPES.AUTHOR_SET_SELECTED:
+      return {
+        ...state,
+        selectedAuthorId: payload,
       };
     case AUTHOR_ACTION_TYPES.AUTHOR_SET_AUTHORS:
       return {

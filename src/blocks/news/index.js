@@ -12,6 +12,7 @@ import styles from 'constants/styles'
 class NewsList extends Component {
   static propTypes = {
     newsList: PropTypes.array,
+    selectedAuthorId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     getData: PropTypes.func,
   };
 
@@ -26,6 +27,10 @@ class NewsList extends Component {
     await getData(API_METHODS.POSTS)
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log(prevProps);
+    console.log(this.props);
+  }
 
   addNews = () => {
     this.setState(state => ({
@@ -84,7 +89,10 @@ class NewsList extends Component {
   }
 }
 
-const mapStateToProps = ({newsState: {newsList}}) => ({newsList});
+const mapStateToProps = ({
+                           newsState: {newsList},
+                           authorState: {selectedAuthorId},
+}) => ({newsList, selectedAuthorId});
 
 const mapDispatchToProps = dispatch => ({
   getData: bindActionCreators(getData, dispatch),

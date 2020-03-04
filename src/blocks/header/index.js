@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Select} from "antd";
 
-import {getData} from 'store/actions/authors.actions';
+import {getData, setSelectedAuthor} from 'store/actions/authors.actions';
 import {API_METHODS} from 'constants/api-methods';
 
 import './header.scss';
@@ -13,6 +13,7 @@ class Header extends Component {
   static propTypes = {
     author: PropTypes.string,
     getData: PropTypes.func,
+    setSelectedAuthor: PropTypes.func,
   };
 
   async componentDidMount() {
@@ -23,7 +24,7 @@ class Header extends Component {
   render() {
     const {Option} = Select;
 
-    const {authors} = this.props;
+    const {authors, setSelectedAuthor} = this.props;
 
     return (
       <header className="header container">
@@ -31,6 +32,7 @@ class Header extends Component {
           style={{width: 200}}
           placeholder="Select a author"
           allowClear
+          onChange={id => setSelectedAuthor(id)}
         >
           {authors.map(item => (
             <Option
@@ -51,7 +53,8 @@ const mapStateToProps = ({authorState}) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getData: bindActionCreators(getData, dispatch)
+  getData: bindActionCreators(getData, dispatch),
+  setSelectedAuthor: bindActionCreators(setSelectedAuthor, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
