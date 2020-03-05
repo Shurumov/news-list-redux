@@ -1,4 +1,6 @@
 export const API_METHODS = {
   POSTS: '/posts',
-  USERS: '/users'
+  POST: id => `/posts/${id}`,
+  USERS: '/users',
+  COMMENTS: id => `/posts/${id}/comments`,
 };

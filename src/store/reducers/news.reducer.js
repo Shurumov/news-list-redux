@@ -1,7 +1,9 @@
-import {NEWS_ACTION_TYPES} from 'store/actions/news.action'
+import { NEWS_ACTION_TYPES } from "store/actions/news.actions";
 
 const initialState = {
-  newsList: [],
+  newsId: '',
+  newsData: {},
+  commentsData: [],
   processing: true,
 };
 
@@ -16,7 +18,11 @@ export default (state = initialState, action) => {
     case NEWS_ACTION_TYPES.NEWS_SET_STATE:
       return {
         ...state,
-        newsList: payload,
+        [payload.key]: payload.data,
+      };
+    case NEWS_ACTION_TYPES.NEWS_CLEAR_STATE:
+      return {
+        ...initialState
       };
     default:
       return state;

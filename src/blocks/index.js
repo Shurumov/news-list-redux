@@ -1,4 +1,5 @@
 import Header from './header'
-import NewsList from './news'
+import NewsList from './news-list'
+import News from './News'
 
-export { Header, NewsList }
+export { Header, NewsList, News }

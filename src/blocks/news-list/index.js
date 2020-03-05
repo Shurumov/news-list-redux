@@ -1,13 +1,19 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
-import { Button, Row, Col, Card} from 'antd';
+import {Button, Row, Col, Card} from 'antd';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import {getData} from 'store/actions/news.action';
-import {showModal} from 'store/actions/modal.action';
+import {News} from 'blocks'
+import {Loader} from 'components'
+
+import {getData} from 'store/actions/news-list.actions';
+import {setData as setSelectedNews} from 'store/actions/news.actions';
+import {showModal} from 'store/actions/modal.actions';
 import {API_METHODS} from 'constants/api-methods';
+
 import styles from 'constants/styles'
+import './news-list.scss';
 
 class NewsList extends Component {
   static propTypes = {
@@ -30,7 +36,7 @@ class NewsList extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
     const {getData, selectedAuthorId} = this.props;
 
-    if(prevProps.selectedAuthorId !== selectedAuthorId){
+    if (prevProps.selectedAuthorId !== selectedAuthorId) {
       const getFromUser = Boolean(selectedAuthorId)
         ? `?userId=${selectedAuthorId}`
         : '';
@@ -45,7 +51,7 @@ class NewsList extends Component {
   };
 
   render() {
-    const {newsList, showModal} = this.props;
+    const {newsList, showModal, setSelectedNews, processing} = this.props;
 
     const {newsCount} = this.state;
 
@@ -54,40 +60,43 @@ class NewsList extends Component {
     const newsListForRender = newsList.slice(0, newsCount);
     return (
       <div className="container">
-        <Row gutter={gutter} content="top">
-          {newsListForRender.map(item => (
-            <Col sm={24} md={12} lg={8} xl={6} key={item.id}>
-              <Card
-                title={item.title}
-                onClick={() => showModal({
-                  title: item.title,
-                  modal: (
-                    <article>
-                      {item.body}
-                    </article>
-                  )
-                })}
-                className="cursor-pointer"
-                style={{
-                  marginBottom: gutter,
-                  maxHeight: 150,
-                  overflow: "hidden",
-                }}
-              >
-                <article>
-                  {`${item.body.slice(0, 70)}...`}
-                </article>
-              </Card>
-            </Col>
-          ))}
+        <Loader isShow={processing}>
+          <Row gutter={gutter} content="top">
+            {newsListForRender.map(item => (
+              <Col sm={24} md={12} lg={8} xl={6} key={item.id}>
+                <Card
+                  title={item.title}
+                  onClick={() => {
+                    setSelectedNews({key: 'newsId', data: item.id});
+                    showModal({
+                      title: item.title,
+                      Node: News
+                    })
+                  }}
+                  className="cursor-pointer"
+                  style={{
+                    marginBottom: gutter,
+                    maxHeight: 150,
+                    overflow: "hidden",
+                  }}
+                >
+                  <article>
+                    {`${item.body.slice(0, 70)}...`}
+                  </article>
+                </Card>
+              </Col>
+            ))}
 
-        </Row>
+          </Row>
+        </Loader>
         {newsCount < newsList.length && (
           <Button
+            className="button-load-more"
+            shape="round"
             type="primary"
             onClick={() => this.addNews()}
           >
-            показать ещё
+            Load more...
           </Button>
         )}
       </div>
@@ -96,12 +105,13 @@ class NewsList extends Component {
 }
 
 const mapStateToProps = ({
-                           newsState: {newsList},
+                           newsState: {newsList, processing},
                            authorState: {selectedAuthorId},
-}) => ({newsList, selectedAuthorId});
+                         }) => ({newsList, selectedAuthorId, processing});
 
 const mapDispatchToProps = dispatch => ({
   getData: bindActionCreators(getData, dispatch),
+  setSelectedNews: bindActionCreators(setSelectedNews, dispatch),
   showModal: bindActionCreators(showModal, dispatch),
 });
 

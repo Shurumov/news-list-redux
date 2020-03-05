@@ -3,29 +3,32 @@ import PropTypes from 'prop-types';
 import {Modal} from 'antd';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {showModal, hideModal} from 'store/actions/modal.action';
+import {showModal, hideModal} from 'store/actions/modal.actions';
 
 class Modals extends PureComponent {
   static propTypes = {
+    title: PropTypes.string,
     modalState: PropTypes.object,
   };
 
   render() {
-    const { modalState: {description, title, isShow}, hideModal} = this.props;
+    const { modalState: {Node = (<></>), title, isShow}, hideModal} = this.props;
     return (
       <Modal
         title={title}
         visible={isShow}
         onCancel={hideModal}
+        footer={null}
       >
-        {description}
+        <Node/>
       </Modal>
     )
   }
 }
 
-const mapStateToProps = ({modalState}) => ({
+const mapStateToProps = ({modalState,selectNewsState: { newsData: { title } }}) => ({
   modalState,
+  title
 });
 
 const mapDispatchToProps = dispatch => ({

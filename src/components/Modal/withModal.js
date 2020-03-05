@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { showModal, hideModal } from 'store/actions/modal.action';
+import { showModal, hideModal } from 'store/actions/modal.actions';
 
 export function withModals(Component) {
   class withModalHOC extends PureComponent {
